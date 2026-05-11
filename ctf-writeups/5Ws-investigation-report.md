@@ -1,8 +1,5 @@
 # 🔍 5 Ws Investigation Report — [Alert / Room Name]
 
-> Template for every TryHackMe room and SOC investigation
-> Copy this file, rename it, and fill it in every time
-
 ---
 
 ## 📋 Alert Summary
