@@ -31,7 +31,7 @@ The attacker gains control of a single machine.
 | Phase | What happens |
 |-------|--------------|
 | Reconnaissance | Researching the target (LinkedIn, open ports, public info) |
-| Weaponization | Building the malicious payload |
+| Weaponization | Building the malicious payload, PREP C2 Server,reverse shell,dep payloads |
 | Delivery | Sending it (phishing email, malicious link) |
 | Social Engineering | Convincing the user to act |
 | Exploitation | Code executes on the victim machine |
@@ -69,8 +69,8 @@ The attacker achieves what they came for.
 | Phase | What happens |
 |-------|--------------|
 | Collection | Gathering the target data |
-| Exfiltration | Sending it out of the network |
-| Impact | Ransomware, deletion, disruption |
+| Exfiltration | Sending it out of the network,steal data,  |
+| Impact | Ransomware, deletion, disruption,manipulate, |
 | Objectives | Goal achieved |
 
 **Result:** the breach — the part that makes the news.
