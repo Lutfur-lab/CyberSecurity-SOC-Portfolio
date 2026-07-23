@@ -35,7 +35,7 @@ The attacker gains control of a single machine.
 | Delivery | Sending it (phishing email, malicious link) |
 | Social Engineering | Convincing the user to act |
 | Exploitation | Code executes on the victim machine |
-| Persistence | Survives reboots (registry keys, scheduled tasks) |
+| Persistence | Survives reboots (registry keys, scheduled tasks),leaving backdoor |
 | Defence Evasion | Avoiding AV/EDR detection |
 | Command & Control | Malware connects back to the attacker |
 
@@ -49,7 +49,7 @@ The attacker expands from that first machine across the network.
 
 | Phase | What happens |
 |-------|--------------|
-| Pivoting | Using the compromised host as a tunnel deeper in |
+| Pivoting | Using the compromised host as a tunnel deeper in.moving 1 to 1 |
 | Discovery | Mapping other hosts, shares, accounts |
 | Privilege Escalation | Gaining admin / SYSTEM rights |
 | Execution | Running tools on other systems |
