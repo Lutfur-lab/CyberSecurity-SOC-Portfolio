@@ -1,6 +1,6 @@
 # 🔗 Unified Kill Chain — SOC Analyst Notes
 
-**Author:** *[Your Name]*
+**Author:** *[Lutfur]*
 **Topic:** Attack frameworks for SOC Level 1
 **Related:** [Koi Stealer Case Study](./README.md)
 
