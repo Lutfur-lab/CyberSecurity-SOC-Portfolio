@@ -1,42 +1,39 @@
-# ☁️ Project 07 — Azure Sentinel Lab (Free Tier)
+# ☁️ Project 07 — Microsoft Sentinel Lab
 
-## What is this?
-A fully documented setup of Microsoft Sentinel on a free Azure account, with real data connectors, custom KQL detection rules, and investigation walkthroughs.
+> 🔲 **Status: Planned** — not built yet.
 
-## Why employers love this
-The SOC Analyst job description you found requires Microsoft Sentinel. This project proves hands-on Sentinel experience before your first job — extremely rare and highly valued.
+## Goal
+Deploy Microsoft Sentinel on a free Azure account, connect real log sources, write custom detection rules, and investigate the alerts they raise.
 
-## Setup guide
+## Plan
 
-### Step 1 — Create free Azure account
-- Go to azure.microsoft.com/free
-- Get £150 free credit — more than enough
+### 1. Azure account
+- Free Azure account (includes starter credit — check current amount on the Azure site)
+- Set a **budget alert** first so nothing runs up a bill
 
-### Step 2 — Deploy Sentinel
-- Create Log Analytics workspace
-- Enable Microsoft Sentinel on the workspace
-- Free tier: 10GB/day for 31 days
+### 2. Deploy Sentinel
+- Create a Log Analytics workspace
+- Enable Microsoft Sentinel on it (free trial period for new workspaces — check current terms)
 
-### Step 3 — Connect data sources (free)
-- Azure Activity logs
-- Azure AD Sign-in logs
-- Microsoft Defender for Cloud (free tier)
+### 3. Connect data sources
+| Source | Works on free account? | Notes |
+|---|---|---|
+| Azure Activity logs | ✅ | Subscription-level events |
+| Windows VM Security Events (via Azure Monitor Agent) | ✅ | Best source for 4625/4688 detections — needs a small VM |
+| Microsoft Defender for Cloud (free tier) | ✅ | Basic recommendations/alerts |
+| Entra ID (Azure AD) **sign-in logs** | ⚠️ | Exporting sign-in logs needs an **Entra ID P1/P2 licence** — use a P2 trial or skip |
 
-### Step 4 — Write detection rules
-- Go to Analytics > Create scheduled query rule
-- Use KQL queries from Project 03
+### 4. Detection rules
+- Analytics → Create → Scheduled query rule
+- Use queries from [Project 03](../03-kql-spl-query-library/)
 
-### Step 5 — Trigger and investigate alerts
-- Simulate failed logins to Azure portal
-- Watch alerts fire in Sentinel
-- Document the investigation
+### 5. Trigger and investigate
+- Generate failed logons against the Windows VM (RDP only from your own IP)
+- Confirm the alert fires, then investigate the incident in Sentinel
+- **Delete the VM afterwards** — an exposed VM is a real risk
 
-## What to document
-- [ ] Setup screenshots step by step
-- [ ] Data connectors configured
-- [ ] Custom detection rules (KQL)
-- [ ] Sample alert investigations with screenshots
-- [ ] Sentinel dashboard overview
-
-## Skills shown
-Microsoft Sentinel · Azure · KQL · Cloud SIEM · Detection engineering · Documentation
+## To document when built
+- [ ] Setup screenshots
+- [ ] Connectors configured
+- [ ] Custom rules + the alerts they raised
+- [ ] One full incident investigation write-up

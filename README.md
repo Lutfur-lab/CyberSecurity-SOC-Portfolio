@@ -4,7 +4,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Google-Cybersecurity_Certified-4285F4?style=flat&logo=google" />
   <img src="https://img.shields.io/badge/TryHackMe-SOC_Level_1-1D9E75?style=flat" />
-  <img src="https://img.shields.io/badge/Microsoft-SC--900-0078D4?style=flat&logo=microsoft" />
+  <img src="https://img.shields.io/badge/Microsoft-SC--900_In_Progress-0078D4?style=flat&logo=microsoft" />
   <img src="https://img.shields.io/badge/Status-Open_to_Work-brightgreen?style=flat" />
 </p>
 
@@ -12,9 +12,9 @@
 
 ## 🎯 About Me
 
-I am a BSc Computing graduate with a Google Cybersecurity Certificate, transitioning into a **SOC Tier 1 Analyst** role with a long-term goal of becoming a **Cloud Security Engineer**.
+BSc Computing graduate with a Google Cybersecurity Certificate, working towards a **SOC Tier 1 Analyst** role, with a long-term goal of **Cloud Security Engineer**.
 
-This portfolio showcases hands-on projects, investigation write-ups, and study notes built throughout my learning journey.
+This portfolio shows investigations I've worked end-to-end, plus the projects I'm building next.
 
 | | |
 |---|---|
@@ -22,54 +22,61 @@ This portfolio showcases hands-on projects, investigation write-ups, and study n
 | 📜 | Google Professional Cybersecurity Certificate |
 | 🧪 | TryHackMe SOC Level 1 |
 | 🎯 | Target role: SOC Tier 1 Analyst |
-| 🔭 | Long-term: Cloud Security Engineer |
 | 📍 | United Kingdom |
 
 ---
 
-## 🚀 Projects
+## ⭐ Featured Investigations
 
-> These are hands-on practical projects built to demonstrate real SOC analyst skills
+### 🧬 [DNS Exfiltration — Phishing to Confirmed Data Theft](./projects/09-dns-exfiltration-investigation/)
+A low-severity phishing alert traced through the full kill chain: disguised `.lnk` attachment → in-memory PowerShell reverse shell over ngrok → financial share accessed → data exfiltrated via DNS tunnelling. Rebuilt the process chain in Splunk, decoded the exfil in CyberChef, confirmed scope, mapped to MITRE ATT&CK.
+`Splunk` `Sysmon` `CyberChef` `PowerShell` `MITRE ATT&CK`
 
-| # | Project | Skills demonstrated | Status |
-|---|---------|---------------------|--------|
-| 01 | [🎣 Phishing Email Analyser](./projects/01-phishing-email-analyser/) | Phishing analysis, Python, VirusTotal API, IOCs | 🟡 |
-| 02 | [🏠 SOC Home Lab Setup](./projects/02-soc-homelab/) | SIEM, network monitoring, virtualisation | 🔲 |
-| 03 | [🔍 KQL & SPL Query Library](./projects/03-kql-spl-query-library/) | Microsoft Sentinel, Splunk, threat detection | 🔲 |
-| 04 | [📋 Incident Response Playbooks](./projects/04-incident-response-playbooks/) | IR process, documentation, playbooks | 🔲 |
-| 05 | [🕵️ Threat Intelligence Report](./projects/05-threat-intel-report/) | MITRE ATT&CK, threat hunting, IOC analysis | 🔲 |
-| 06 | [🐍 Log Analyser (Python)](./projects/06-log-analyser-python/) | Python scripting, log parsing, automation | 🔲 |
-| 07 | [☁️ Azure Sentinel Lab](./projects/07-azure-sentinel-lab/) | Microsoft Sentinel, KQL, cloud security | 🔲 |
-| 08 | [🎓 Security Awareness Kit](./projects/08-security-awareness-kit/) | Security education, phishing awareness | 🔲 |
+### 🎣 [Phishing — Fake Messenger Login Page](./projects/10-messenger-phishing-investigation/)
+Credential-harvesting site on free hosting, analysed with URLScan.io. Includes why the IP is **not** a safe block indicator on shared hosting.
+`URLScan.io` `Google Safe Browsing` `IOC triage`
 
 ---
 
-## 📚 Study Notes
+## 🚀 All Projects
 
+| # | Project | Skills | Status |
+|---|---|---|---|
+| 09 | [DNS Exfiltration Investigation](./projects/09-dns-exfiltration-investigation/) | Splunk, Sysmon, CyberChef, MITRE | ✅ Complete |
+| 10 | [Phishing: Fake Messenger Login](./projects/10-messenger-phishing-investigation/) | URL analysis, IOC triage | ✅ Complete |
+| 04 | [Incident Response Playbooks](./projects/04-incident-response-playbooks/) | NIST IR lifecycle, triage, escalation | 🟡 3 of 4 written |
+| 03 | [KQL & SPL Query Library](./projects/03-kql-spl-query-library/) | Sentinel, Splunk, detection logic | 🟡 Written, testing next |
+| 05 | [Threat Intel Profile: Emotet](./projects/05-threat-intel-report/) | MITRE ATT&CK, research | 🟡 In progress |
+| 08 | [Security Awareness Kit](./projects/08-security-awareness-kit/) | Communication, NCSC guidance | 🟡 Content written |
+| 02 | [SOC Home Lab](./projects/02-soc-homelab/) | SIEM, Sysmon, attack simulation | 🔲 Planned |
+| 01 | [Phishing Email Analyser (Python)](./projects/01-phishing-email-analyser/) | Python, threat intel APIs | 🔲 Planned |
+| 06 | [Windows Log Analyser (Python)](./projects/06-log-analyser-python/) | Python, pandas, Event IDs | 🔲 Planned |
+| 07 | [Microsoft Sentinel Lab](./projects/07-azure-sentinel-lab/) | Azure, Sentinel, KQL | 🔲 Planned |
+
+---
+
+## 🏆 TryHackMe Write-ups & Notes
+Alert investigations and analyst notes from the TryHackMe SOC Level 1 path.
+→ [View all write-ups](./ctf-writeups/)
+
+## 📚 Study Notes
 | Topic | Folder |
-|-------|--------|
+|---|---|
 | Foundations & SOC Basics | [/notes/foundations](./notes/foundations/) |
-| Network Security & Wireshark | [/notes/network-security](./notes/network-security/) |
-| Endpoint Security (Windows/Linux) | [/notes/endpoint-security](./notes/endpoint-security/) |
-| SIEM Tools (Sentinel, Splunk) | [/notes/siem-tools](./notes/siem-tools/) |
+| Network Security | [/notes/network-security](./notes/network-security/) |
+| Endpoint Security | [/notes/endpoint-security](./notes/endpoint-security/) |
+| SIEM Tools | [/notes/siem-tools](./notes/siem-tools/) |
 | Threat Intelligence & MITRE ATT&CK | [/notes/threat-intelligence](./notes/threat-intelligence/) |
 | Malware Analysis | [/notes/malware-analysis](./notes/malware-analysis/) |
 | Incident Response | [/notes/incident-response](./notes/incident-response/) |
-| Cloud Security (Azure/AWS) | [/notes/cloud-security](./notes/cloud-security/) |
-
----
-
-## 🏆 CTF & TryHackMe Write-ups
-
-Hands-on room walkthroughs showing real investigation skills.
-→ [View all write-ups](./ctf-writeups/)
+| Cloud Security | [/notes/cloud-security](./notes/cloud-security/) |
 
 ---
 
 ## 📜 Certifications
 
 | Certification | Provider | Status |
-|---------------|----------|--------|
+|---|---|---|
 | Google Cybersecurity Certificate | Google | ✅ Complete |
 | SC-900 Security Fundamentals | Microsoft | 🟡 In Progress |
 | CompTIA Security+ | CompTIA | 🔲 Planned |
@@ -82,32 +89,26 @@ Hands-on room walkthroughs showing real investigation skills.
 ## 🛠️ Tools & Skills
 
 ```
-SIEM            │ Microsoft Sentinel  · Splunk · ELK Stack
-Network         │ Wireshark · Zeek · Snort
-Endpoint        │ Windows Event Logs · Sysmon · Microsoft Defender
-Threat Intel    │ MITRE ATT&CK · VirusTotal · AbuseIPDB · Shodan
-Cloud           │ Microsoft Azure · AWS · Microsoft 365 Security
-Scripting       │ Python (learning) · KQL · SPL · Bash basics
-Frameworks      │ NIST CSF · Cyber Kill Chain · Pyramid of Pain
+Used hands-on   │ Splunk · Sysmon · Windows Event Logs · PowerShell · CyberChef
+                │ URLScan.io · VirusTotal · MITRE ATT&CK
+Learning        │ Microsoft Sentinel · KQL · Wireshark · Wazuh · Python
+                │ Microsoft Azure · Microsoft Defender
+Frameworks      │ NIST SP 800-61 · Cyber Kill Chain · Unified Kill Chain · Pyramid of Pain
 ```
 
 ---
 
-## 🗺️ Career Roadmap
+## 🗺️ Roadmap
 
 ```
-2025 ── Google Cert ✅  +  BSc Computing ✅
-2026 ── TryHackMe SOC L1  +  SC-900  +  Security+
-         ↓
-         SOC Tier 1 Analyst  £28–35k  📍
-         ↓
-2027 ── SC-200  +  AZ-900  +  AWS Cloud Practitioner
-         ↓
-         Cloud Security Engineer  £55–75k  🎯
-         ↓
-2028 ── Senior Cloud Security Engineer  £80–100k+  🚀
+Done   ── BSc Computing ✅ · Google Cybersecurity Certificate ✅
+Now    ── TryHackMe SOC L1 · SC-900 · Home lab build
+Next   ── Security+ · SC-200  →  SOC Tier 1 Analyst
+Later  ── AZ-500 · Cloud security  →  Cloud Security Engineer
 ```
 
 ---
 
-*📬 Connect with me on [LinkedIn](#) | 🧪 [TryHackMe Profile](#)*
+<!-- TODO: add real URLs, then uncomment:
+*📬 Connect with me on [LinkedIn](https://www.linkedin.com/in/YOUR-HANDLE) | 🧪 [TryHackMe](https://tryhackme.com/p/YOUR-HANDLE)*
+-->

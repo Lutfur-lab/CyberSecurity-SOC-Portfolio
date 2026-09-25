@@ -1,37 +1,30 @@
-# 🏠 Project 02 — SOC Home Lab Setup
+# 🏠 Project 02 — SOC Home Lab
 
-## What is this?
-A fully documented home lab simulating a real SOC environment using free tools. Built with VirtualBox, Security Onion as the SIEM, a Windows VM as target, and Kali Linux as attacker.
+> 🔲 **Status: Planned** — lab build not started yet. Completed mini-lab: [Windows Firewall IP blocking](./windows-firewall-ip-blocking.md)
 
-## Why employers love this
-This proves you did not just watch videos — you built a real environment, generated real attacks, and detected them. Almost no entry-level candidate does this.
-
-## Lab Architecture
+## Planned architecture
 ```
 [Kali Linux — Attacker VM]
-         |
-         | attacks
-         v
-[Windows 10 — Target VM]  -->  [Security Onion / Wazuh — SIEM]
-                                         |
-                                         v
-                               [You — investigating alerts]
+         │ attacks
+         ▼
+[Windows 10 — Target VM + Sysmon]  ──logs──▶  [Wazuh or Security Onion — SIEM]
+                                                        │
+                                                        ▼
+                                              [Analyst — investigate alerts]
 ```
 
-## Tools (all free)
-- VirtualBox — virtualbox.org
-- Security Onion or Wazuh — free SIEM
-- Windows 10 evaluation VM
-- Kali Linux
-- Sysmon on Windows VM
+## Planned tools
+VirtualBox · Wazuh or Security Onion · Windows 10 evaluation VM · Sysmon · Kali Linux
 
-## Attack scenarios to simulate
-| Attack | Tool | What to detect |
-|--------|------|----------------|
+## Planned attack scenarios
+| Attack | Tool | Expected detection |
+|---|---|---|
 | Port scan | nmap | Network scan alerts |
-| Brute force | Hydra | Failed login events (4625) |
-| Reverse shell | Metasploit | Suspicious process (4688) |
-| Persistence | Schtasks | Scheduled task (4698) |
+| Brute force | Hydra | Failed logons (4625), then success (4624) |
+| Reverse shell | Metasploit | Process creation (4688 / Sysmon 1), network connection (Sysmon 3) |
+| Persistence | schtasks | Scheduled task created (4698) |
 
-## Skills shown
-SIEM setup · Network monitoring · Threat detection · Virtualisation · Documentation
+## To document when built
+- [ ] Setup screenshots
+- [ ] Each attack + the alert it triggered
+- [ ] Investigation write-up per scenario

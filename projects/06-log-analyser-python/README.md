@@ -1,43 +1,27 @@
 # 🐍 Project 06 — Windows Log Analyser (Python)
 
-## What is this?
-A Python script that reads Windows Event Log CSV exports, identifies suspicious patterns automatically, and outputs a threat summary report. Automates what a Tier 1 analyst does manually.
+> 🔲 **Status: Planned** — not built yet.
 
-## Why employers love this
-Python scripting is increasingly expected in SOC roles. A working script that solves a real analyst problem shows initiative, technical ability, and understanding of SOC workflows — rare at entry level.
+## Goal
+A Python script that reads Windows Event Log CSV exports, flags suspicious patterns and prints a triage summary — automating the first pass a Tier 1 analyst does by hand.
 
-## What it detects
-- Brute force: 5+ failed logins (Event 4625) in 1 hour
-- New user accounts created (Event 4720)
-- Suspicious PowerShell commands (Event 4688)
-- New scheduled tasks (Event 4698)
-- New services installed (Event 7045)
+## Planned detections
+| Detection | Event ID | Log |
+|---|---|---|
+| Brute force: 10+ failed logons in 1 hour | 4625 | Security |
+| Failures followed by a successful logon | 4625 → 4624 | Security |
+| New user account created | 4720 | Security |
+| User added to admin group | 4728 / 4732 | Security |
+| Suspicious PowerShell command line | 4688 | Security |
+| New scheduled task | 4698 | Security |
+| New service installed | 7045 | **System** (separate export) |
 
-## Sample output
-```
-===== LOG ANALYSIS REPORT =====
-File: windows_events.csv  |  Total events: 4,821
+## Planned approach
+1. Export Security and System logs from Event Viewer as CSV
+2. Load with `pandas`
+3. Filter by Event ID, group by user/IP, count per hour
+4. Flag anything over threshold, with a severity level
+5. Print a summary report
 
-[CRITICAL] BRUTE FORCE DETECTED
-  Account: administrator | Failures: 47 | Source: 192.168.1.105
-
-[HIGH] NEW USER ACCOUNT CREATED
-  Account: backdoor_user | Created by: SYSTEM | Time: 03:42:11
-
-[HIGH] SUSPICIOUS POWERSHELL
-  User: john.smith | Command: powershell.exe -enc SQBFAFgA...
-
-VERDICT: CRITICAL — Escalate immediately
-================================
-```
-
-## How to build it
-1. Export Windows Event Logs from Event Viewer as CSV
-2. Load with Python pandas
-3. Filter rows by EventID
-4. Group by user/IP, count failures per hour
-5. Flag anything over threshold
-6. Print summary report
-
-## Skills shown
-Python · Pandas · Log analysis · Windows Event IDs · SOC automation
+## Test data
+Will be generated in the [home lab](../02-soc-homelab/) so the output shows real detections, not made-up ones.

