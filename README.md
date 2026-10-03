@@ -80,9 +80,9 @@ Alert investigations and analyst notes from the TryHackMe SOC Level 1 path.
 | Google Cybersecurity Certificate | Google | ✅ Complete |
 | SC-900 Security Fundamentals | Microsoft | 🟡 In Progress |
 | CompTIA Security+ | CompTIA | 🔲 Planned |
-| TryHackMe SAL1 | TryHackMe | 🔲 Planned |
+| TryHackMe SAL1 | TryHackMe | 🟡 In Progress |
 | SC-200 Security Operations Analyst | Microsoft | 🔲 Planned |
-| AZ-500 Azure Security Engineer | Microsoft | 🔲 Planned |
+
 
 ---
 
