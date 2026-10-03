@@ -4,7 +4,7 @@
 | Write-up | Alert type | Status |
 |---|---|---|
 | [Workbook 1 — Email Analysis](./Workbook1-Email-Analysis.md) | External email with script/binary attachment | ✅ |
-| [Workbook 2 — PowerShell Analysis](./Workbook2-PowerShell-Analysis.md) | External email with script/binary attachment | 🟡 In progress |
+| [Workbook 2 — PowerShell Analysis](./Workbook2-PowerShell-Analysis.md) | External email with script/binary attachment | DOne
 | [Workbook 3 — Network Analysis](./Workbook3-Network-Analysis.md) | Network | 🔲 To write |
 
 ## Analyst notes & frameworks
